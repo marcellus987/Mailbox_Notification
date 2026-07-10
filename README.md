@@ -4,7 +4,7 @@ Repository for my mailbox notification project. Code for transmitter and receive
 **<u>Note</u>:** You must clone the drivers needed for this project under "drivers" repository. This is a must until I figure out
 how to group them. Or, just download each individual drivers necessary for the project. Thank you!
 
-**<u>FYI</u>:** This is project is currently ***In Progress***, I made significant changes locally before I updating this remote repository (bad habit, I know).
+**<u>FYI</u>:** This project is currently ***In Progress***, I made significant changes locally before I updating this remote repository (bad habit, I know).
 
 <hr>
 
@@ -27,6 +27,8 @@ how to group them. Or, just download each individual drivers necessary for the p
 
 ### For debug:
 - PC13: User LED for debugging purposes.
+
+<hr>
 
 ## <u>Pins used (Receiver STM32-blackpill)</u>:
 ### RYLR689 LoRa module:
