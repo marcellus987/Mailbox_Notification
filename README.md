@@ -17,8 +17,8 @@ how to group them. Or, just download each individual drivers necessary for the p
 - PB0: RF CONTROL
 - PB1: RF CONTROL
 - PB5: BUSY
-- PB6: DIO
 - PB8: RESET
+- PB9: DIO (Interrupt)
 
 ### IR beam transmitter and receiver sensor:
 - PB10: IR beam receiver output.
@@ -39,12 +39,12 @@ how to group them. Or, just download each individual drivers necessary for the p
 - PB0: RF CONTROL
 - PB1: RF CONTROL
 - PB5: BUSY
-- PB6: DIO
 - PB8: RESET
+- PB9: DIO (Interrupt)
 
 ### DS3231 (RTC module):
-- PB9: SDA
-- PB10: SCL
+- PB6: SDA
+- PB7: SCL
 
 ### SD-card module (SPI-based):
 - PA1: CS
