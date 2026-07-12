@@ -30,11 +30,12 @@ int main(void) {
 		/* For debug. */
 		for(volatile int i = 0; i < 2; ++i) {
 			debug_led_on();
-			delay_ms(500);
+			delay_ms(1000);
 			debug_led_off();
-			delay_ms(500);
+			delay_ms(1000);
 		}
 #endif
+
 		/* Go to deep sleep for 1 minute. Mail is either being placed inside or taken out of the mailbox. */
 		wait_for_action_done(ACTION_DURATION);
 		isMailPresent = verify_mail_presence();
@@ -59,6 +60,7 @@ int main(void) {
 				delay_ms(100);
 			}
 #endif
+
 			if(init_mail_status == 1) { /* Case #2. */
 				send_notification(MAIL_ABSENT);
 			}
@@ -67,13 +69,11 @@ int main(void) {
 	}
 
 #ifdef DEBUG_MODE__
-	/* For debug. */
-	for(volatile int i = 0; i < 2; ++i) {
+//	/* For debug. */
+//	for(volatile int i = 0; i < 2; ++i) {
 		debug_led_on();
-		delay_ms(500);
-		debug_led_off();
-		delay_ms(500);
-	}
+		delay_ms(2000);
+//	}
 #endif
 
 	/* Go to stand-by mode and wait for mailbox lid to trigger wake-up. */
@@ -117,6 +117,7 @@ void configureButton(void) {
 	__enable_irq();
 }
 
+
 void EXTI0_IRQHandler(void) {
 	if(EXTI->PR & EXTI_PR_PR0) {
 		EXTI->PR |= EXTI_PR_PR0;
@@ -125,6 +126,3 @@ void EXTI0_IRQHandler(void) {
 		send_notification(mail_status);
 	}
 }
-
-
-
