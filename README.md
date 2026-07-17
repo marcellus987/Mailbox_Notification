@@ -1,5 +1,5 @@
 # Mailbox Notification Device Project
-Repository for my mailbox notification project. Code for transmitter and receiver is placed under separate folder. 
+Repository for my mailbox notification project. Code for transmitter and receiver are placed under separate folder. 
 
 **<u>Note</u>:** You must clone the drivers needed for this project under "drivers" repository. This is a must until I figure out
 how to group them. Or, just download each individual drivers necessary for the project. Thank you!
@@ -66,4 +66,15 @@ how to group them. Or, just download each individual drivers necessary for the p
 <hr>
 
 # Demo:
+
+### Image(s):
+
+**<u>Components:<u>**
+- STM32F411CEU (blackpill): for Tx and Rx, RYLR689 LoRa module, SD card module, DS3231 RTC module, IR transmitter-receiver (Not shown, TBU), Reed switch (Normally open. Not shown, TBU) .
+![Components used in this project.](/demo/images/components.jpg)
+
+**<u>Tx/Rx devices:<u>**
+![Tx and Rx Devices.](/demo/images/transmitter_receiver_device_labeled.jpg)
+
+### Video(s):
 - **TBU**: I will post a simple demonstration video here.
