@@ -6,6 +6,7 @@
 #include "rtc_module_driver.h"
 #include "ff.h"
 #include "uart_driver.h"
+#include "spi.h"
 
 
 #define DEBUG_MODE__
@@ -28,6 +29,26 @@ void checkFRESULT(FRESULT res);
 void configureButton(void);
 uint8_t checkHeaderPresent(char* target, char* header, uint32_t headerLen);
 FRESULT makeLog(FIL* file, UINT* bw, uint8_t mail_status);
+
+//int main(void) {
+//	uint8_t mail_status;
+//
+//	init_debug_mode();
+//
+//	debug_led_on();
+//	receive_notification(&mail_status);
+//
+//	if(mail_status == MAIL_PRESENT) {
+//		debug_led_off();
+////		received_led_on();
+//	}
+//	else {
+////		debug_led_off();
+////		received_led_off();
+//	}
+//
+////	debug_led_off();
+//}
 
 int main(void) {
 	FATFS fs;   /* File system. */
@@ -53,7 +74,7 @@ int main(void) {
 	/* For user-LED debug indication. */
 	init_debug_mode();
 	configureButton();
-	received_led_init();
+	configure_indicator_led();
 #endif
 
 	rtc_module_init();
@@ -62,9 +83,19 @@ int main(void) {
     res = f_mount(&fs, "",0);
 	checkFRESULT(res);
 
-	/* Open log file.*/
-	res = f_open(&file, "mail_log.csv", FA_WRITE | FA_READ | FA_OPEN_APPEND);
-	checkFRESULT(res);
+//	delay_ms(2000);
+
+    while(1) {
+    	/* Open log file.*/
+    		res = f_open(&file, "mail_log.csv", FA_WRITE | FA_READ | FA_OPEN_APPEND);
+    		checkFRESULT(res);
+    		if(res == FR_OK) {
+    			break;
+    		}
+    }
+//	/* Open log file.*/
+//	res = f_open(&file, "mail_log.csv", FA_WRITE | FA_READ | FA_OPEN_APPEND);
+//	checkFRESULT(res);
 
 	/* Get lower 32-bit of the returned value of f_size(). */
 	fileSize = f_size(&file) & 0xFFFFFFFFU;
@@ -99,34 +130,37 @@ int main(void) {
 		if(bw != headerLen) {
 			debug_led_on();
 		}
+		f_sync(&file);
 	}
 
+	slave_deselect(SPI_GPIO_A, 1);
 	while(run) {
-//		receive_notification(&mail_status);
+		/* Blocking version. */
+		receive_notification(&mail_status);
 
 		if(mail_status == MAIL_PRESENT) {
 		//		debug_led_on();
-			received_led_on();
+			mail_present_led_on();
 		}
 		else {
 		//		debug_led_off();
-			received_led_off();
+			mail_absent_led_on();
 		}
-
+		slave_select(SPI_GPIO_A, 1);
 		res = makeLog(&file, &bw, mail_status);
 		checkFRESULT(res);
 
 		f_sync(&file);
-
+		slave_deselect(SPI_GPIO_A, 1);
 		delay_ms(2000);
 	}
-
+	slave_select(SPI_GPIO_A, 1);
 	res = f_close(&file);
 	checkFRESULT(res);
 	res = f_mount(NULL, "", 0);
 	checkFRESULT(res);
-
-	received_led_off();
+	slave_deselect(SPI_GPIO_A, 1);
+	led_indicator_off();
 	debug_led_off();
 } /* End of main(). */
 
@@ -153,11 +187,11 @@ FRESULT makeLog(FIL* file, UINT* bw, uint8_t mail_status) {
 /* If at any moment user-led on board lit, there is a problem with file operation. */
 void checkFRESULT(FRESULT res) {
 	if(res != FR_OK) {
-		debug_led_on();
+		sd_error_led_on();
 //		printf("res != FR_OK...\r\n");
 	}
 	else {
-		debug_led_off();
+		sd_ok_led_on();
 //		printf("res == FR_OK...\r\n");
 	}
 }
@@ -172,7 +206,7 @@ void configureButton(void) {
 	RCC->APB2ENR |= RCC_APB2ENR_SYSCFGEN;
 
 	/* Input mode.*/
-	GPIOA->MODER &= GPIO_MODER_MODER0_Msk;
+	GPIOA->MODER &= ~GPIO_MODER_MODER0_Msk;
 
 	/* Enable Pull-up. */
 	GPIOA->PUPDR |= GPIO_PUPDR_PUPD0_0;
@@ -195,6 +229,11 @@ void EXTI0_IRQHandler(void) {
 		EXTI->PR |= EXTI_PR_PR0;
 		run = 0;
 	}
+}
+
+
+void configure_led(void) {
+
 }
 
 
