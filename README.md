@@ -43,8 +43,8 @@ how to group them. Or, just download each individual drivers necessary for the p
 - PB9: DIO (Interrupt)
 
 ### DS3231 (RTC module):
-- PB6: SDA
-- PB7: SCL
+- PB6: SCL
+- PB7: SDA
 
 ### SD-card module (SPI-based):
 - PA1: CS
