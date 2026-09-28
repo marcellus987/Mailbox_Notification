@@ -14,10 +14,10 @@ how to group them. Or, just download each individual drivers necessary for the p
 - PA6: MISO
 - PA7: MOSI
 - PA8: NSS (CS)
-- PB0: RF CONTROL
-- PB1: RF CONTROL
+- PB0: RF CONTROL: RFSW_V1_PIN_POS
+- PB1: RF CONTROL: RFSW_V2_PIN_POS
 - PB5: BUSY
-- PB8: RESET
+- PB8: RESET (Active-Low)
 - PB9: DIO (Interrupt)
 
 ### IR beam transmitter and receiver sensor:
@@ -36,10 +36,10 @@ how to group them. Or, just download each individual drivers necessary for the p
 - PA6: MISO
 - PA7: MOSI
 - PA8: NSS (CS)
-- PB0: RF CONTROL
-- PB1: RF CONTROL
+- PB0: RF CONTROL: RFSW_V1_PIN_POS
+- PB1: RF CONTROL: RFSW_V2_PIN_POS
 - PB5: BUSY
-- PB8: RESET
+- PB8: RESET (Active-Low)
 - PB9: DIO (Interrupt)
 
 ### DS3231 (RTC module):
@@ -52,8 +52,16 @@ how to group them. Or, just download each individual drivers necessary for the p
 - PA6: MISO
 - PA7: MOSI
 
+### OLED Display (SPI-based):
+- PA4: CS
+- PA5: SCLK
+- PA7: MOSI
+- PB14: DC
+- PB15: RESET (Active-Low)
+
 ## LED indication lights:
-- **TBD**
+- PB12: Yellow LED 
+- PB13: Blue LED
   
 ### For debug:
 - PC13: User LED for debugging purposes.
