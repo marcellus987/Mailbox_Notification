@@ -9,6 +9,7 @@ how to group them. Or, just download each individual drivers necessary for the p
 <hr>
 
 ## <u>Pins used (Transmitter STM32-blackpill)</u>:
+
 ### RYLR689 LoRa module:
 - PA5: SCK
 - PA6: MISO
@@ -26,11 +27,14 @@ how to group them. Or, just download each individual drivers necessary for the p
 - PB13: IR beam transmitter power.
 
 ### For debug:
+- PA2: UART TX
+- PA3: UART RX
 - PC13: User LED for debugging purposes.
 
 <hr>
 
 ## <u>Pins used (Receiver STM32-blackpill)</u>:
+
 ### RYLR689 LoRa module:
 - PA5: SCLK
 - PA6: MISO
@@ -64,6 +68,8 @@ how to group them. Or, just download each individual drivers necessary for the p
 - PB13: Blue LED
   
 ### For debug:
+- PA2: UART TX
+- PA3: UART RX
 - PC13: User LED for debugging purposes.
 
 <hr>
